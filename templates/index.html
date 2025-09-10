@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grocery List Comparator</title>
+    <link rel="stylesheet" href="/static/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Montserrat:wght@700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <div class="logo-bar">
+            <img src="/vu.png" alt="VU Logo" class="vu-logo">
+        </div>
+        <h1><span class="icon">🛒</span> Grocery List Comparator</h1>
+        <p class="subtitle">Easily compare grocery lists for your family.</p>
+        <form id="grocery-form" autocomplete="off">
+            <div id="member-list">
+                <div class="member-list">
+                    <input type="text" placeholder="Member Name" class="member-name" required>
+                    <input type="text" placeholder="Grocery items (comma separated)" class="member-items" required>
+                    <button type="button" class="remove-member" aria-label="Remove member" onclick="this.parentElement.remove()">✖</button>
+                </div>
+            </div>
+            <div class="actions">
+                <button id="add-member" type="button">+ Add Member</button>
+                <button id="compare-btn" type="button">Compare Lists</button>
+            </div>
+        </form>
+        <div id="results" class="results"></div>
+    </div>
+    <footer>
+        <div class="footer-content">
+            <span class="footer-left">Made with <span class="footer-heart">❤️</span> for Discrete Maths</span>
+            <span class="footer-center">| <a href="https://pkunaka1engineer.me/" target="_blank" class="footer-btn">View My Site</a> |</span>
+            <span class="footer-right">All rights reserved @Panashe</span>
+        </div>
+    </footer>
+    <script src="/static/script.js"></script>
+</body>
+</html>
