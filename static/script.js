@@ -1,4 +1,4 @@
-python app.pydocument.addEventListener('DOMContentLoaded', function() {
+    document.addEventListener('DOMContentLoaded', function() {
     const addMemberBtn = document.getElementById('add-member');
     const memberListDiv = document.getElementById('member-list');
     const compareBtn = document.getElementById('compare-btn');
