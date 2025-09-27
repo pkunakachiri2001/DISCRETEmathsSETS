@@ -980,6 +980,77 @@ footer {
         font-size: 0.85rem;
     }
     
+    /* Mobile Hero Section */
+    .main-container {
+        padding: 120px 1rem 2rem;
+        gap: 2rem;
+    }
+    
+    .hero-section {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+        min-height: auto;
+        text-align: center;
+    }
+    
+    .hero-visual {
+        order: -1;
+    }
+    
+    .main-title {
+        font-size: 2.5rem;
+    }
+    
+    .subtitle {
+        font-size: 1.2rem;
+    }
+    
+    .description {
+        font-size: 1rem;
+    }
+    
+    .venn-diagram {
+        width: 250px;
+        height: 250px;
+    }
+    
+    .circle {
+        width: 150px;
+        height: 150px;
+        font-size: 1.5rem;
+    }
+    
+    .circle-a {
+        top: 0;
+        left: 25px;
+    }
+    
+    .circle-b {
+        top: 50px;
+        left: 75px;
+    }
+    
+    /* Mobile Info Section */
+    .cards-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+    
+    .info-card {
+        padding: 1.5rem;
+    }
+    
+    .math-symbols {
+        justify-content: center;
+        gap: 0.8rem;
+    }
+    
+    .math-symbol {
+        width: 50px;
+        height: 50px;
+        font-size: 1.2rem;
+    }
+    
     .container {
         max-width: 95vw;
         margin: 10px auto;
@@ -1072,6 +1143,131 @@ footer {
         padding: 0.5rem 1rem;
         font-size: 0.8rem;
     }
+    
+    /* Small Mobile Adjustments */
+    .main-container {
+        padding: 100px 0.5rem 2rem;
+        gap: 1.5rem;
+    }
+    
+    .main-title {
+        font-size: 2rem;
+        line-height: 1.2;
+    }
+    
+    .subtitle {
+        font-size: 1rem;
+    }
+    
+    .description {
+        font-size: 0.9rem;
+        margin-bottom: 1.5rem;
+    }
+    
+    .badge {
+        font-size: 0.75rem;
+        padding: 0.4rem 0.8rem;
+    }
+    
+    .venn-diagram {
+        width: 200px;
+        height: 200px;
+    }
+    
+    .circle {
+        width: 120px;
+        height: 120px;
+        font-size: 1.2rem;
+    }
+    
+    .about-section {
+        padding: 2rem 1rem;
+    }
+    
+    .about-content h2 {
+        font-size: 1.5rem;
+    }
+    
+    .about-content p {
+        font-size: 1rem;
+    }
+    
+    .action-content h2 {
+        font-size: 2rem;
+    }
+    
+    .action-content p {
+        font-size: 1rem;
+    }
+    
+    .action-btn {
+        padding: 0.8rem 2rem;
+        font-size: 1rem;
+    }
+}
+
+/* Extra Small Devices */
+@media (max-width: 480px) {
+    .main-title {
+        font-size: 1.8rem;
+    }
+    
+    .subtitle {
+        font-size: 0.9rem;
+    }
+    
+    .math-symbols {
+        gap: 0.5rem;
+    }
+    
+    .math-symbol {
+        width: 40px;
+        height: 40px;
+        font-size: 1rem;
+    }
+    
+    .info-card {
+        padding: 1rem;
+    }
+    
+    .card-header h3 {
+        font-size: 1rem;
+    }
+    
+    .feature-item span {
+        font-size: 0.85rem;
+    }
+    
+    .team-members span {
+        font-size: 0.8rem;
+    }
+}
+
+/* Ultra Small Devices */
+@media (max-width: 360px) {
+    .main-container {
+        padding: 90px 0.25rem 1rem;
+    }
+    
+    .main-title {
+        font-size: 1.6rem;
+    }
+    
+    .hero-section {
+        gap: 1rem;
+    }
+    
+    .venn-diagram {
+        width: 180px;
+        height: 180px;
+    }
+    
+    .circle {
+        width: 100px;
+        height: 100px;
+        font-size: 1rem;
+    }
+}
     
     .container {
         max-width: 99vw;
