@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Discrete Mathematics Project 1 - Set Operations Comparator</title>
+    <link rel="stylesheet" href="/static/home.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']]
+            }
+        };
+    </script>
+</head>
+<body>
+    <!-- Background Elements -->
+    <div class="bg-decoration">
+        <div class="floating-shapes">
+            <div class="shape shape-1"></div>
+            <div class="shape shape-2"></div>
+            <div class="shape shape-3"></div>
+            <div class="shape shape-4"></div>
+        </div>
+    </div>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo-section">
+                <img src="/static/vu.png" alt="VU Logo" class="nav-logo">
+                <div class="brand-info">
+                    <h3 class="brand-title">Discrete Mathematics</h3>
+                    <p class="brand-subtitle">Project 1 - Set Operations</p>
+                </div>
+            </div>
+            <div class="nav-center">
+                <div class="nav-links">
+                    <a href="#about" class="nav-link">
+                        <i class="fas fa-info-circle"></i>
+                        About
+                    </a>
+                    <a href="#team" class="nav-link">
+                        <i class="fas fa-users"></i>
+                        Team
+                    </a>
+                    <a href="#features" class="nav-link">
+                        <i class="fas fa-cogs"></i>
+                        Features
+                    </a>
+                </div>
+            </div>
+            <div class="nav-actions">
+                <a href="/calculator" class="calculator-btn">
+                    <i class="fas fa-calculator"></i>
+                    <span class="btn-text">Launch Calculator</span>
+                    <div class="btn-shine"></div>
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Container -->
+    <div class="main-container">
+        <!-- Hero Section -->
+        <section class="hero-section">
+            <div class="hero-content">
+                <div class="badge">
+                    <i class="fas fa-graduation-cap"></i>
+                    Academic Project
+                </div>
+                
+                <h1 class="main-title">
+                    Discrete Mathematics
+                    <span class="highlight">Project 1</span>
+                </h1>
+                
+                <p class="subtitle">Set Operations & List Comparator</p>
+                
+                <div class="math-display">
+                    <div class="math-symbols">
+                        <span class="math-symbol" data-tooltip="Union">∪</span>
+                        <span class="math-symbol" data-tooltip="Intersection">∩</span>
+                        <span class="math-symbol" data-tooltip="Difference">∖</span>
+                        <span class="math-symbol" data-tooltip="Cardinality">|A|</span>
+                    </div>
+                </div>
+                
+                <p class="description">
+                    Experience discrete mathematics through an interactive grocery list comparator that demonstrates real-world applications of set theory.
+                </p>
+            </div>
+            
+            <!-- Visual Element -->
+            <div class="hero-visual">
+                <div class="venn-diagram">
+                    <div class="circle circle-a">
+                        <span class="circle-label">A</span>
+                    </div>
+                    <div class="circle circle-b">
+                        <span class="circle-label">B</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section id="about" class="about-section">
+            <div class="about-content">
+                <h2><i class="fas fa-info-circle"></i> About This Project</h2>
+                <p>This interactive web application demonstrates practical applications of discrete mathematics set theory through grocery list comparison, making abstract mathematical concepts accessible and engaging.</p>
+            </div>
+        </section>
+
+        <!-- Info Cards -->
+        <section id="team" class="info-section">
+            <div class="cards-grid">
+                <!-- Team Card -->
+                <div class="info-card team-card">
+                    <div class="card-header">
+                        <i class="fas fa-users"></i>
+                        <h3>Development Team</h3>
+                    </div>
+                    <div class="team-info">
+                        <div class="team-row">
+                            <span class="role-badge backend">Backend</span>
+                            <div class="team-members">
+                                <span>TANVI PATIL</span>
+                                <span>NOORWAY FARAS</span>
+                                <span>CHRISTIAN R MUTIWADIRWA</span>
+                                <span>PANASHE KUNAKA</span>
+                            </div>
+                        </div>
+                        <div class="team-row">
+                            <span class="role-badge frontend">UI Design</span>
+                            <div class="team-members">
+                                <span>PANASHE KUNAKA</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Features Card -->
+                <div id="features" class="info-card features-card">
+                    <div class="card-header">
+                        <i class="fas fa-cogs"></i>
+                        <h3>Key Features</h3>
+                    </div>
+                    <div class="features-list">
+                        <div class="feature-item">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Interactive Set Operations</span>
+                        </div>
+                        <div class="feature-item">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Real-time Comparisons</span>
+                        </div>
+                        <div class="feature-item">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Mathematical Visualization</span>
+                        </div>
+                        <div class="feature-item">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Educational Interface</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Action Section -->
+        <section class="action-section">
+            <div class="action-content">
+                <h2>Ready to Explore Set Theory?</h2>
+                <p>Start comparing grocery lists and see discrete mathematics in action</p>
+                <a href="/calculator" class="action-btn">
+                    <span class="btn-text">
+                        <i class="fas fa-rocket"></i>
+                        Launch Calculator
+                    </span>
+                    <span class="btn-glow"></span>
+                </a>
+            </div>
+        </section>
+    </div>
+    
+    <footer>
+        <div class="footer-content">
+            <span class="footer-left">Made with <span class="footer-heart">❤️</span> for Discrete Mathematics Project 1</span>
+            <span class="footer-center">| <a href="https://pkunaka1engineer.me/" target="_blank" class="footer-btn">View Designer's Portfolio</a> |</span>
+            <span class="footer-right">UI Design & Development by Panashe Kunaka © 2025</span>
+        </div>
+    </footer>
+</body>
+</html>

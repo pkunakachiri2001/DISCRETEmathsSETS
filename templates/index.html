@@ -3,39 +3,294 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Grocery List Comparator</title>
+    <title>Set Operations Calculator - Discrete Mathematics</title>
     <link rel="stylesheet" href="/static/style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Montserrat:wght@700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']]
+            }
+        };
+    </script>
 </head>
 <body>
-    <div class="container">
-        <div class="logo-bar">
-            <img src="/static/vu.png" alt="VU Logo" class="vu-logo">
+    <!-- Background Elements -->
+    <div class="bg-decoration">
+        <div class="floating-shapes">
+            <div class="shape shape-1"></div>
+            <div class="shape shape-2"></div>
+            <div class="shape shape-3"></div>
+            <div class="shape shape-4"></div>
         </div>
-        <h1><span class="icon">🛒</span> Grocery List Comparator</h1>
-        <p class="subtitle">Easily compare grocery lists for your family.</p>
-        <form id="grocery-form" autocomplete="off">
-            <div id="member-list">
-                <div class="member-list">
-                    <input type="text" placeholder="Member Name" class="member-name" required>
-                    <input type="text" placeholder="Grocery items (comma separated)" class="member-items" required>
-                    <button type="button" class="remove-member" aria-label="Remove member" onclick="this.parentElement.remove()">✖</button>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo-section">
+                <img src="/static/vu.png" alt="VU Logo" class="nav-logo">
+                <div class="brand-info">
+                    <h3 class="brand-title">Set Operations Calculator</h3>
+                    <p class="brand-subtitle">Discrete Mathematics Tool</p>
                 </div>
             </div>
-            <div class="actions">
-                <button id="add-member" type="button">+ Add Member</button>
-                <button id="compare-btn" type="button">Compare Lists</button>
+            <div class="nav-center">
+                <div class="breadcrumb">
+                    <a href="/" class="breadcrumb-link">
+                        <i class="fas fa-home"></i>
+                        Home
+                    </a>
+                    <i class="fas fa-chevron-right"></i>
+                    <span class="current-page">Calculator</span>
+                </div>
             </div>
-        </form>
-        <div id="results" class="results"></div>
+            <div class="nav-actions">
+                <a href="/" class="back-btn">
+                    <i class="fas fa-arrow-left"></i>
+                    <span class="btn-text">Back to Home</span>
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Container -->
+    <div class="main-container">
+        <!-- Header Section -->
+        <section class="calculator-header">
+            <div class="header-content">
+                <div class="calculator-badge">
+                    <i class="fas fa-calculator"></i>
+                    Interactive Calculator
+                </div>
+                <h1 class="calculator-title">
+                    <span class="math-symbol">∪∩∖</span>
+                    Grocery List Comparator
+                </h1>
+                <p class="calculator-description">
+                    Apply discrete mathematics set operations to analyze and compare grocery lists in real-time
+                </p>
+                <!-- Removed bulky operation indicators per user request -->
+                <details class="mini-ops" style="margin-top:0.75rem;">
+                    <summary style="cursor:pointer; font-size:0.7rem; letter-spacing:.5px; color:rgba(255,255,255,0.75);">Show operation symbols</summary>
+                    <div style="display:flex; gap:.4rem; flex-wrap:wrap; margin-top:.6rem; justify-content:center;">
+                        <span style="background:rgba(255,255,255,0.12); padding:.4rem .65rem; border-radius:12px; font-size:.65rem; color:#fff;">∪ Union</span>
+                        <span style="background:rgba(255,255,255,0.12); padding:.4rem .65rem; border-radius:12px; font-size:.65rem; color:#fff;">∩ Intersection</span>
+                        <span style="background:rgba(255,255,255,0.12); padding:.4rem .65rem; border-radius:12px; font-size:.65rem; color:#fff;">Exclusive (unique per member)</span>
+                        <span style="background:rgba(255,255,255,0.12); padding:.4rem .65rem; border-radius:12px; font-size:.65rem; color:#fff;">|A| Count</span>
+                    </div>
+                </details>
+            </div>
+        </section>
+        
+        <!-- Calculator Content -->
+        <div class="calculator-content">
+            <!-- Step Indicator -->
+            <div class="step-indicator">
+                <div class="step active" data-step="1">
+                    <div class="step-number">1</div>
+                    <div class="step-info">
+                        <div class="step-title">Add Members</div>
+                        <div class="step-desc">Create your grocery lists</div>
+                    </div>
+                </div>
+                <div class="step-line"></div>
+                <div class="step" data-step="2">
+                    <div class="step-number">2</div>
+                    <div class="step-info">
+                        <div class="step-title">Compare</div>
+                        <div class="step-desc">Analyze set operations</div>
+                    </div>
+                </div>
+                <div class="step-line"></div>
+                <div class="step" data-step="3">
+                    <div class="step-number">3</div>
+                    <div class="step-info">
+                        <div class="step-title">Results</div>
+                        <div class="step-desc">View mathematical analysis</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Input Section -->
+            <div class="input-section">
+                <div class="section-header">
+                    <h3>
+                        <i class="fas fa-users"></i>
+                        Add Team Members & Their Lists
+                    </h3>
+                    <p>Enter each person's grocery list to compare using set theory</p>
+                </div>
+
+                <form id="grocery-form" autocomplete="off" class="member-entry-form">
+                    <div class="inline-inputs">
+                        <div class="field-group">
+                            <label for="member-name">Member Name</label>
+                            <input id="member-name" type="text" placeholder="e.g. Alice" />
+                        </div>
+                        <div class="field-group stretch">
+                            <label for="member-items">Items (comma separated)</label>
+                            <input id="member-items" type="text" placeholder="milk, bread, eggs" />
+                        </div>
+                        <div class="actions-vertical">
+                            <button id="add-member" type="button" class="add-member-btn compact">
+                                <i class="fas fa-user-plus"></i>
+                                <span>Add</span>
+                            </button>
+                            <button id="clear-current" type="button" class="secondary-btn compact" title="Clear current inputs">
+                                <i class="fas fa-eraser"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="hint-row">
+                        <span><i class="fas fa-info-circle"></i> Press Add after each member. Need at least 2 members to enable comparison.</span>
+                    </div>
+                    <div class="members-panel">
+                        <div class="panel-header">
+                            <button type="button" id="toggle-members" class="collapse-btn" aria-expanded="false">
+                                <i class="fas fa-chevron-right"></i>
+                                <span class="label">Show Members</span>
+                                <span class="count-badge" id="member-count">0</span>
+                            </button>
+                            <div class="panel-tools">
+                                <button type="button" id="reset-all" class="danger-btn small" disabled>
+                                    <i class="fas fa-trash"></i> Reset All
+                                </button>
+                                <button type="button" id="compare-btn" class="primary-btn small" disabled>
+                                    <i class="fas fa-calculator"></i> Compare
+                                </button>
+                            </div>
+                        </div>
+                        <div class="panel-body collapsed" id="members-container">
+                            <table class="members-table">
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Name</th>
+                                        <th>Items</th>
+                                        <th>Count</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody id="members-rows">
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Live Preview Section -->
+            <div id="live-preview" class="live-preview hidden refined">
+                <div class="section-header">
+                    <h3>
+                        <i class="fas fa-eye"></i>
+                        Live Preview
+                    </h3>
+                    <p>Real-time set operations as you type</p>
+                </div>
+                <div class="preview-stats grid3">
+                    <div class="stat-card simple">
+                        <div class="stat-label">Members</div>
+                        <div class="stat-number" id="stat-members">0</div>
+                    </div>
+                    <div class="stat-card simple">
+                        <div class="stat-label">Union Size</div>
+                        <div class="stat-number" id="stat-union">0</div>
+                    </div>
+                    <div class="stat-card simple">
+                        <div class="stat-label">Intersection Size</div>
+                        <div class="stat-number" id="stat-intersection">0</div>
+                    </div>
+                    <div class="stat-card simple">
+                        <div class="stat-label">Exactly One</div>
+                        <div class="stat-number" id="stat-exactly-one">0</div>
+                    </div>
+                    <div class="stat-card simple">
+                        <div class="stat-label">Avg Items / Member</div>
+                        <div class="stat-number" id="stat-average">0</div>
+                    </div>
+                    <div class="stat-card simple">
+                        <div class="stat-label">Ready?</div>
+                        <div class="stat-number status" id="stat-ready">No</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Results Section -->
+            <div id="results" class="results-section hidden refined">
+                <div class="section-header">
+                    <h3>
+                        <i class="fas fa-chart-bar"></i>
+                        Mathematical Analysis Results
+                    </h3>
+                    <p>Detailed set theory operations and calculations</p>
+                </div>
+                <div id="results-content" class="results-content">
+                    <!-- Results will be populated here -->
+                </div>
+            </div>
+        </div>
     </div>
-    <footer>
+    <!-- Help Modal -->
+    <div id="help-modal" class="modal hidden">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>
+                    <i class="fas fa-question-circle"></i>
+                    Set Operations Guide
+                </h3>
+                <button class="modal-close">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="help-section">
+                    <h4><span class="math-symbol">∪</span> Union (A ∪ B)</h4>
+                    <p>All items that appear in either list A or list B (or both).</p>
+                </div>
+                <div class="help-section">
+                    <h4><span class="math-symbol">∩</span> Intersection (A ∩ B)</h4>
+                    <p>Items that appear in both list A and list B.</p>
+                </div>
+                <div class="help-section">
+                    <h4><span class="math-symbol">∖</span> Difference (A ∖ B)</h4>
+                    <p>Items that are in list A but not in list B.</p>
+                </div>
+                <div class="help-section">
+                    <h4><span class="math-symbol">|A|</span> Cardinality</h4>
+                    <p>The number of elements in a set.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Loading Overlay -->
+    <div id="loading-overlay" class="loading-overlay hidden">
+        <div class="loading-spinner">
+            <div class="spinner"></div>
+            <p>Calculating set operations...</p>
+        </div>
+    </div>
+
+    <footer class="calculator-footer">
         <div class="footer-content">
-            <span class="footer-left">Made with <span class="footer-heart">❤️</span> for Discrete Maths</span>
-            <span class="footer-center">| <a href="https://pkunaka1engineer.me/" target="_blank" class="footer-btn">View My Site</a> |</span>
-            <span class="footer-right">All rights reserved @Panashe</span>
+            <span class="footer-left">Made with <span class="footer-heart">❤️</span> for Discrete Mathematics Project 1</span>
+            <span class="footer-center">
+                | <button id="help-btn" class="help-btn">
+                    <i class="fas fa-question-circle"></i>
+                    Help
+                </button> |
+                <a href="https://pkunaka1engineer.me/" target="_blank" class="footer-btn">View Designer's Portfolio</a> |
+            </span>
+            <span class="footer-right">UI Design & Development by Panashe Kunaka © 2025</span>
         </div>
     </footer>
+
     <script src="/static/script.js"></script>
 </body>
 </html>
