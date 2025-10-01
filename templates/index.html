@@ -423,25 +423,130 @@
     </div>
 
     <footer class="calculator-footer">
-        <div class="footer-content">
-            <span class="footer-left">
-                <i class="fas fa-calculator"></i>
-                Interactive Set Theory Calculator
-            </span>
-            <span class="footer-center">
-                | <button id="help-btn" class="help-btn">
-                    <i class="fas fa-question-circle"></i>
-                    Help
-                </button> |
-                <span class="footer-team">
-                    <i class="fas fa-users"></i>
-                    Team Collaboration
-                </span> |
-            </span>
-            <span class="footer-right">
-                <i class="fas fa-university"></i>
-                Discrete Mathematics Excellence © 2025
-            </span>
+        <div class="footer-container">
+            <!-- Calculator Footer Main -->
+            <div class="calculator-footer-main">
+                <div class="footer-section compact">
+                    <div class="calculator-info">
+                        <div class="calc-title">
+                            <i class="fas fa-calculator"></i>
+                            <h4>Set Operations Calculator</h4>
+                        </div>
+                        <p>Real-time discrete mathematics analysis with professional export capabilities</p>
+                        <div class="quick-actions">
+                            <button id="help-btn" class="action-btn help">
+                                <i class="fas fa-question-circle"></i>
+                                <span>Help Guide</span>
+                            </button>
+                            <a href="/" class="action-btn home">
+                                <i class="fas fa-home"></i>
+                                <span>Home</span>
+                            </a>
+                            <a href="/sample-template" class="action-btn template">
+                                <i class="fas fa-file-csv"></i>
+                                <span>Template</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="footer-section compact">
+                    <h4><i class="fas fa-cogs"></i> Operations</h4>
+                    <div class="operations-grid">
+                        <div class="operation-item">
+                            <span class="op-symbol">∪</span>
+                            <div class="op-info">
+                                <strong>Union</strong>
+                                <span>All unique items</span>
+                            </div>
+                        </div>
+                        <div class="operation-item">
+                            <span class="op-symbol">∩</span>
+                            <div class="op-info">
+                                <strong>Intersection</strong>
+                                <span>Common items</span>
+                            </div>
+                        </div>
+                        <div class="operation-item">
+                            <span class="op-symbol">∖</span>
+                            <div class="op-info">
+                                <strong>Difference</strong>
+                                <span>Unique per member</span>
+                            </div>
+                        </div>
+                        <div class="operation-item">
+                            <span class="op-symbol">|A|</span>
+                            <div class="op-info">
+                                <strong>Cardinality</strong>
+                                <span>Item count</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="footer-section compact">
+                    <h4><i class="fas fa-users"></i> Team</h4>
+                    <div class="team-compact">
+                        <div class="team-names">
+                            <span>Tanvi Patil</span>
+                            <span>Noorway Faras</span>
+                            <span>Christian R Mutiwadirwa</span>
+                            <span>Panashe Kunaka</span>
+                        </div>
+                        <div class="team-role">
+                            <i class="fas fa-graduation-cap"></i>
+                            <span>Collaborative Academic Project</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="footer-section compact">
+                    <h4><i class="fas fa-chart-line"></i> Live Stats</h4>
+                    <div class="live-footer-stats" id="footer-stats">
+                        <div class="footer-stat">
+                            <i class="fas fa-users"></i>
+                            <span class="stat-label">Members:</span>
+                            <span class="stat-value" id="footer-members">0</span>
+                        </div>
+                        <div class="footer-stat">
+                            <i class="fas fa-list"></i>
+                            <span class="stat-label">Total Items:</span>
+                            <span class="stat-value" id="footer-total-items">0</span>
+                        </div>
+                        <div class="footer-stat">
+                            <i class="fas fa-union"></i>
+                            <span class="stat-label">Union Size:</span>
+                            <span class="stat-value" id="footer-union-size">0</span>
+                        </div>
+                        <div class="footer-stat">
+                            <i class="fas fa-intersection"></i>
+                            <span class="stat-label">Common:</span>
+                            <span class="stat-value" id="footer-common">0</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Calculator Footer Bottom -->
+            <div class="calculator-footer-bottom">
+                <div class="footer-bottom-left">
+                    <p>
+                        <i class="fas fa-graduation-cap"></i>
+                        Discrete Mathematics Excellence through Innovation
+                    </p>
+                </div>
+                <div class="footer-bottom-center">
+                    <div class="feature-badges">
+                        <span class="badge csv"><i class="fas fa-file-csv"></i> CSV</span>
+                        <span class="badge excel"><i class="fas fa-file-excel"></i> Excel</span>
+                        <span class="badge mobile"><i class="fas fa-mobile-alt"></i> Mobile</span>
+                        <span class="badge realtime"><i class="fas fa-bolt"></i> Real-time</span>
+                    </div>
+                </div>
+                <div class="footer-bottom-right">
+                    <p>© 2025 Academic Project Team</p>
+                </div>
+            </div>
         </div>
     </footer>
 
