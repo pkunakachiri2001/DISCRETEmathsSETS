@@ -84,8 +84,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function addMember() {
         const name = nameInput.value.trim();
-        const items = itemsInput.value.split(',').map(x => x.trim()).filter(Boolean);
-        if (!name || items.length === 0) return;
+        const rawItems = itemsInput.value.split(',').map(x => x.trim()).filter(Boolean);
+        if (!name || rawItems.length === 0) return;
+        
+        // Normalize items to title case for consistent comparison
+        const items = rawItems.map(item => {
+            // Convert to title case (first letter uppercase, rest lowercase)
+            return item.charAt(0).toUpperCase() + item.slice(1).toLowerCase();
+        });
+        
         members.push({ name, items });
         nameInput.value = '';
         itemsInput.value = '';
@@ -116,16 +123,38 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
         livePreview.classList.remove('hidden');
+        
+        // Create case-insensitive union
         const union = new Set();
-        members.forEach(m => m.items.forEach(i => union.add(i)));
+        members.forEach(m => {
+            m.items.forEach(i => {
+                // Normalize to title case for comparison
+                const normalized = i.charAt(0).toUpperCase() + i.slice(1).toLowerCase();
+                union.add(normalized);
+            });
+        });
+        
         let intersection = [];
-        if (members.length === 1) intersection = [...members[0].items];
-        else {
-            const sets = members.map(m => new Set(m.items));
-            intersection = [...sets[0]].filter(it => sets.every(s => s.has(it)));
+        if (members.length === 1) {
+            intersection = [...members[0].items];
+        } else {
+            // Create normalized sets for intersection
+            const normalizedSets = members.map(m => 
+                new Set(m.items.map(i => i.charAt(0).toUpperCase() + i.slice(1).toLowerCase()))
+            );
+            intersection = [...normalizedSets[0]].filter(it => 
+                normalizedSets.every(s => s.has(it))
+            );
         }
+        
+        // Count frequency with case-insensitive comparison
         const freq = {};
-        members.forEach(m => m.items.forEach(i => freq[i] = (freq[i] || 0) + 1));
+        members.forEach(m => {
+            m.items.forEach(i => {
+                const normalized = i.charAt(0).toUpperCase() + i.slice(1).toLowerCase();
+                freq[normalized] = (freq[normalized] || 0) + 1;
+            });
+        });
         const exactlyOne = Object.entries(freq).filter(([,c]) => c === 1).length;
         const avgVal = members.length ? (members.reduce((acc,m)=>acc+m.items.length,0)/members.length).toFixed(1) : 0;
 
@@ -370,9 +399,13 @@ document.addEventListener('DOMContentLoaded', () => {
                 // Clear existing members
                 members.splice(0, members.length);
                 
-                // Add imported members
+                // Add imported members with case normalization
                 result.members.forEach(member => {
-                    members.push({ name: member.name, items: member.items });
+                    // Ensure imported items are also normalized to title case
+                    const normalizedItems = member.items.map(item => 
+                        item.charAt(0).toUpperCase() + item.slice(1).toLowerCase()
+                    );
+                    members.push({ name: member.name, items: normalizedItems });
                 });
                 
                 // Update UI

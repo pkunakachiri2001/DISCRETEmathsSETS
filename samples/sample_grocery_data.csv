@@ -1,9 +1,9 @@
 member,items
 Alice,"milk, bread, eggs, butter, cheese"
 Bob,"bread, cheese, milk, yogurt, apples"
-Charlie,"eggs, bread, apples, bananas, oranges"
+Charlie,"eggs,milk, bread, apples, bananas, oranges"
 Diana,"milk, cheese, bread, pasta, tomatoes"
-Eve,"yogurt, apples, bananas, spinach, carrots"
-Frank,"butter, cheese, pasta, tomatoes, onions"
+Eve,"yogurt, apples, bananas, spinach, carrots,milk"
+Frank,"butter, cheese, pasta, tomatoes,milk,onions"
 Grace,"milk, eggs, spinach, carrots, broccoli"
-Henry,"bread, apples, oranges, onions, garlic"
+Henry,"bread, apples, oranges, onions, garlic,milk"
