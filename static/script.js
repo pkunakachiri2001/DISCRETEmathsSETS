@@ -1,4 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
+    console.log('Script loaded successfully');
+    
     // Core Elements
     const nameInput = document.getElementById('member-name');
     const itemsInput = document.getElementById('member-items');
@@ -21,6 +23,13 @@ document.addEventListener('DOMContentLoaded', () => {
     // Import/Export elements
     const importBtn = document.getElementById('import-btn');
     const exportBtn = document.getElementById('export-btn');
+    
+    console.log('Import button found:', importBtn);
+    console.log('Export button found:', exportBtn);
+    console.log('Import modal found:', importModal);
+    console.log('Export modal found:', exportModal);
+    console.log('File input found:', fileInput);
+    console.log('Process import button found:', processImportBtn);
     const importModal = document.getElementById('import-modal');
     const exportModal = document.getElementById('export-modal');
     const importModalClose = document.getElementById('import-modal-close');
@@ -230,8 +239,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Import/Export Functions
     function openImportModal() {
-        importModal.classList.remove('hidden');
-        resetImportState();
+        console.log('Opening import modal, modal element:', importModal);
+        if (importModal) {
+            importModal.classList.remove('hidden');
+            resetImportState();
+        } else {
+            console.error('Import modal not found!');
+        }
     }
 
     function closeImportModal() {
@@ -404,8 +418,17 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function openExportModal() {
-        exportModal.classList.remove('hidden');
-        document.getElementById('export-members-count').textContent = members.length;
+        console.log('Opening export modal, modal element:', exportModal);
+        console.log('Members count:', members.length);
+        if (exportModal) {
+            exportModal.classList.remove('hidden');
+            const exportCountElement = document.getElementById('export-members-count');
+            if (exportCountElement) {
+                exportCountElement.textContent = members.length;
+            }
+        } else {
+            console.error('Export modal not found!');
+        }
     }
 
     function closeExportModal() {
@@ -502,8 +525,18 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // Import/Export events
-    importBtn?.addEventListener('click', openImportModal);
-    exportBtn?.addEventListener('click', openExportModal);
+    importBtn?.addEventListener('click', () => {
+        console.log('Import button clicked');
+        openImportModal();
+    });
+    exportBtn?.addEventListener('click', () => {
+        console.log('Export button clicked');
+        if (members.length === 0) {
+            alert('Please add some members first before exporting!');
+            return;
+        }
+        openExportModal();
+    });
     importModalClose?.addEventListener('click', closeImportModal);
     exportModalClose?.addEventListener('click', closeExportModal);
     
