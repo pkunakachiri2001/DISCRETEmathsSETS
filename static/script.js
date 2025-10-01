@@ -23,13 +23,6 @@ document.addEventListener('DOMContentLoaded', () => {
     // Import/Export elements
     const importBtn = document.getElementById('import-btn');
     const exportBtn = document.getElementById('export-btn');
-    
-    console.log('Import button found:', importBtn);
-    console.log('Export button found:', exportBtn);
-    console.log('Import modal found:', importModal);
-    console.log('Export modal found:', exportModal);
-    console.log('File input found:', fileInput);
-    console.log('Process import button found:', processImportBtn);
     const importModal = document.getElementById('import-modal');
     const exportModal = document.getElementById('export-modal');
     const importModalClose = document.getElementById('import-modal-close');
@@ -42,6 +35,16 @@ document.addEventListener('DOMContentLoaded', () => {
     const previewContent = document.getElementById('preview-content');
     const confirmExportBtn = document.getElementById('confirm-export');
     const cancelExportBtn = document.getElementById('cancel-export');
+    
+    // Debug element availability
+    console.log('=== ELEMENT CHECK ===');
+    console.log('Import button:', !!importBtn ? '✅ Found' : '❌ Missing', importBtn);
+    console.log('Export button:', !!exportBtn ? '✅ Found' : '❌ Missing', exportBtn);
+    console.log('Import modal:', !!importModal ? '✅ Found' : '❌ Missing', importModal);
+    console.log('Export modal:', !!exportModal ? '✅ Found' : '❌ Missing', exportModal);
+    console.log('File input:', !!fileInput ? '✅ Found' : '❌ Missing', fileInput);
+    console.log('Process import btn:', !!processImportBtn ? '✅ Found' : '❌ Missing', processImportBtn);
+    console.log('==================');
 
     let currentStep = 1;
     let lastResults = null;
@@ -239,12 +242,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Import/Export Functions
     function openImportModal() {
-        console.log('Opening import modal, modal element:', importModal);
-        if (importModal) {
-            importModal.classList.remove('hidden');
+        console.log('🔄 Attempting to open import modal...');
+        const modal = document.getElementById('import-modal');
+        if (modal) {
+            console.log('✅ Import modal found, opening...');
+            modal.classList.remove('hidden');
             resetImportState();
         } else {
-            console.error('Import modal not found!');
+            console.error('❌ Import modal not found in DOM!');
+            alert('Import feature is not available. Please refresh the page.');
         }
     }
 
@@ -418,16 +424,19 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function openExportModal() {
-        console.log('Opening export modal, modal element:', exportModal);
+        console.log('🔄 Attempting to open export modal...');
         console.log('Members count:', members.length);
-        if (exportModal) {
-            exportModal.classList.remove('hidden');
+        const modal = document.getElementById('export-modal');
+        if (modal) {
+            console.log('✅ Export modal found, opening...');
+            modal.classList.remove('hidden');
             const exportCountElement = document.getElementById('export-members-count');
             if (exportCountElement) {
                 exportCountElement.textContent = members.length;
             }
         } else {
-            console.error('Export modal not found!');
+            console.error('❌ Export modal not found in DOM!');
+            alert('Export feature is not available. Please refresh the page.');
         }
     }
 
@@ -524,19 +533,30 @@ document.addEventListener('DOMContentLoaded', () => {
         toggleMembersBtn.querySelector('i').classList.toggle('rot');
     });
 
-    // Import/Export events
-    importBtn?.addEventListener('click', () => {
-        console.log('Import button clicked');
-        openImportModal();
-    });
-    exportBtn?.addEventListener('click', () => {
-        console.log('Export button clicked');
-        if (members.length === 0) {
-            alert('Please add some members first before exporting!');
-            return;
-        }
-        openExportModal();
-    });
+    // Import/Export events with better error handling
+    if (importBtn) {
+        importBtn.addEventListener('click', () => {
+            console.log('🔄 Import button clicked');
+            openImportModal();
+        });
+        console.log('✅ Import button event listener added');
+    } else {
+        console.error('❌ Import button not found - cannot add event listener');
+    }
+    
+    if (exportBtn) {
+        exportBtn.addEventListener('click', () => {
+            console.log('🔄 Export button clicked');
+            if (members.length === 0) {
+                alert('Please add some members first before exporting!');
+                return;
+            }
+            openExportModal();
+        });
+        console.log('✅ Export button event listener added');
+    } else {
+        console.error('❌ Export button not found - cannot add event listener');
+    }
     importModalClose?.addEventListener('click', closeImportModal);
     exportModalClose?.addEventListener('click', closeExportModal);
     
