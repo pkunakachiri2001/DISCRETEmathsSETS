@@ -383,6 +383,11 @@ document.addEventListener('DOMContentLoaded', () => {
     async function confirmImport() {
         if (!selectedFile) return;
         
+        const importBtn = document.getElementById('import-btn');
+        
+        // Add loading state to button
+        importBtn.classList.add('loading');
+        
         showLoading();
         const formData = new FormData();
         formData.append('file', selectedFile);
@@ -412,7 +417,15 @@ document.addEventListener('DOMContentLoaded', () => {
                 renderMembersTable();
                 refreshStats();
                 updateControls();
-                closeImportModal();
+                
+                // Add success state to button
+                importBtn.classList.remove('loading');
+                importBtn.classList.add('success');
+                
+                setTimeout(() => {
+                    importBtn.classList.remove('success');
+                    closeImportModal();
+                }, 800);
                 
                 // Show success message
                 const successMsg = document.createElement('div');
@@ -436,6 +449,9 @@ document.addEventListener('DOMContentLoaded', () => {
             alert(`Import Error: ${error.message}`);
         } finally {
             hideLoading();
+            // Reset button state
+            const importBtn = document.getElementById('import-btn');
+            importBtn.classList.remove('loading');
         }
     }
 
@@ -479,11 +495,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
     async function exportData() {
         const format = document.querySelector('input[name="export-format"]:checked').value;
+        const exportBtn = document.getElementById('export-btn');
         
         if (members.length === 0) {
             alert('No data to export');
             return;
         }
+        
+        // Add loading state to button
+        exportBtn.classList.add('loading');
+        exportBtn.disabled = true;
         
         showLoading();
         
@@ -524,7 +545,14 @@ document.addEventListener('DOMContentLoaded', () => {
                 document.body.removeChild(a);
                 URL.revokeObjectURL(url);
                 
-                closeExportModal();
+                // Add success state to button
+                exportBtn.classList.remove('loading');
+                exportBtn.classList.add('success');
+                
+                setTimeout(() => {
+                    exportBtn.classList.remove('success');
+                    closeExportModal();
+                }, 800);
                 
                 // Show success message
                 const successMsg = document.createElement('div');
@@ -547,6 +575,9 @@ document.addEventListener('DOMContentLoaded', () => {
             alert(`Export Error: ${error.message}`);
         } finally {
             hideLoading();
+            // Reset button state
+            exportBtn.classList.remove('loading');
+            exportBtn.disabled = members.length === 0; // Only enable if we have data
         }
     }
 

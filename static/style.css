@@ -1084,6 +1084,148 @@ body {
 .primary-btn.small { background: linear-gradient(135deg,#1e88e5,#42a5f5); }
 .primary-btn.small:disabled { opacity:.4; pointer-events:none; }
 
+/* Enhanced Import/Export Button Styling */
+#import-btn, #export-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    padding: 0.75rem 1.2rem;
+    border-radius: 12px;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(15px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    min-width: 110px;
+    justify-content: center;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+#import-btn {
+    background: linear-gradient(135deg, rgba(34, 197, 94, 0.9) 0%, rgba(16, 185, 129, 0.9) 100%);
+    color: #fff;
+    border-color: rgba(34, 197, 94, 0.3);
+}
+
+#import-btn:hover {
+    background: linear-gradient(135deg, rgba(34, 197, 94, 1) 0%, rgba(16, 185, 129, 1) 100%);
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(34, 197, 94, 0.4);
+    border-color: rgba(34, 197, 94, 0.5);
+}
+
+#import-btn:active {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 15px rgba(34, 197, 94, 0.3);
+}
+
+#import-btn i {
+    font-size: 0.9rem;
+    transition: transform 0.3s ease;
+}
+
+#import-btn:hover i {
+    transform: translateY(-2px);
+}
+
+#export-btn {
+    background: linear-gradient(135deg, rgba(59, 130, 246, 0.9) 0%, rgba(37, 99, 235, 0.9) 100%);
+    color: #fff;
+    border-color: rgba(59, 130, 246, 0.3);
+}
+
+#export-btn:hover {
+    background: linear-gradient(135deg, rgba(59, 130, 246, 1) 0%, rgba(37, 99, 235, 1) 100%);
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(59, 130, 246, 0.4);
+    border-color: rgba(59, 130, 246, 0.5);
+}
+
+#export-btn:active {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3);
+}
+
+#export-btn i {
+    font-size: 0.9rem;
+    transition: transform 0.3s ease;
+}
+
+#export-btn:hover i {
+    transform: translateY(2px);
+}
+
+/* Disabled state for export button */
+#export-btn:disabled {
+    background: linear-gradient(135deg, rgba(107, 114, 128, 0.5) 0%, rgba(75, 85, 99, 0.5) 100%);
+    color: rgba(255, 255, 255, 0.5);
+    border-color: rgba(107, 114, 128, 0.3);
+    cursor: not-allowed;
+    transform: none !important;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+#export-btn:disabled:hover {
+    transform: none !important;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+#export-btn:disabled i {
+    transform: none !important;
+}
+
+/* Button glow effect on focus */
+#import-btn:focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.3), 0 8px 25px rgba(34, 197, 94, 0.4);
+}
+
+#export-btn:focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.3), 0 8px 25px rgba(59, 130, 246, 0.4);
+}
+
+/* Loading animation for import/export buttons */
+#import-btn.loading, #export-btn.loading {
+    position: relative;
+    color: transparent;
+}
+
+#import-btn.loading::after, #export-btn.loading::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 16px;
+    height: 16px;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-top: 2px solid #fff;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: translate(-50%, -50%) rotate(0deg); }
+    100% { transform: translate(-50%, -50%) rotate(360deg); }
+}
+
+/* Success state animation */
+#import-btn.success, #export-btn.success {
+    background: linear-gradient(135deg, rgba(34, 197, 94, 1) 0%, rgba(16, 185, 129, 1) 100%);
+    animation: successPulse 0.6s ease-out;
+}
+
+@keyframes successPulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+}
+
 /* Collapse Panel */
 .members-panel { margin-top: 1.4rem; border: 1px solid rgba(255,255,255,0.18); border-radius: 18px; background: rgba(15,18,28,0.55); backdrop-filter: blur(14px); }
 .panel-header { display:flex; justify-content: space-between; align-items:center; padding:.85rem 1.1rem; border-bottom:1px solid rgba(255,255,255,0.12); }

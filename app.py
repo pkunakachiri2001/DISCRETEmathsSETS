@@ -1,15 +1,6 @@
 from __future__ import annotations
 
-from flask import Flask, jsonify, render_template, request, make_respons                if member_name and items_str and items_str != 'nan':
-                    # Handle comma-separated items with case normalization
-                    raw_items = [item.strip() for item in items_str.split(',') if item.strip()]
-                    # Normalize to title case for consistent comparison
-                    items = [item.title() for item in raw_items]
-                    if items:
-                        members_data.append({
-                            'name': member_name,
-                            'items': items
-                        })file
+from flask import Flask, jsonify, render_template, request, make_response
 from typing import Dict, Iterable, List, Set, Optional
 import os
 import pandas as pd
