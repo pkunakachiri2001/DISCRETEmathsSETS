@@ -1629,6 +1629,106 @@ footer {
     box-shadow: 0 8px 20px rgba(102, 126, 234, 0.4);
 }
 
+/* GitHub Repository Styling */
+.info-item:has(.fas.fa-github) {
+    background: linear-gradient(135deg, rgba(88, 166, 255, 0.1) 0%, rgba(139, 92, 246, 0.1) 100%);
+    border: 1px solid rgba(88, 166, 255, 0.2);
+    border-radius: 12px;
+    padding: 1rem;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+}
+
+.info-item:has(.fas.fa-github):hover {
+    background: linear-gradient(135deg, rgba(88, 166, 255, 0.15) 0%, rgba(139, 92, 246, 0.15) 100%);
+    border-color: rgba(88, 166, 255, 0.4);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(88, 166, 255, 0.2);
+}
+
+.info-item:has(.fas.fa-github) .fas.fa-github {
+    color: #58a6ff;
+    font-size: 1.2rem;
+    transition: all 0.3s ease;
+}
+
+.info-item:has(.fas.fa-github):hover .fas.fa-github {
+    color: #79c0ff;
+    transform: scale(1.1) rotate(5deg);
+}
+
+.info-item:has(.fas.fa-github) strong {
+    color: #58a6ff;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.info-item:has(.fas.fa-github) strong::after {
+    content: "🔗";
+    font-size: 0.8rem;
+    opacity: 0.7;
+    transition: all 0.3s ease;
+}
+
+.info-item:has(.fas.fa-github):hover strong::after {
+    opacity: 1;
+    transform: scale(1.2);
+}
+
+.info-item:has(.fas.fa-github) span {
+    color: rgba(255, 255, 255, 0.85);
+    font-family: 'Courier New', monospace;
+    font-size: 0.85rem;
+    background: rgba(0, 0, 0, 0.2);
+    padding: 0.4rem 0.6rem;
+    border-radius: 6px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    transition: all 0.3s ease;
+    word-break: break-all;
+    margin-top: 0.5rem;
+    display: block;
+}
+
+.info-item:has(.fas.fa-github):hover span {
+    background: rgba(0, 0, 0, 0.3);
+    border-color: rgba(88, 166, 255, 0.3);
+    color: #79c0ff;
+    transform: translateX(3px);
+}
+
+/* GitHub shine effect */
+.info-item:has(.fas.fa-github)::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(45deg, transparent 30%, rgba(88, 166, 255, 0.1) 50%, transparent 70%);
+    transform: translateX(-100%) translateY(-100%) rotate(45deg);
+    transition: transform 0.6s ease;
+    z-index: 0;
+}
+
+.info-item:has(.fas.fa-github):hover::before {
+    transform: translateX(100%) translateY(100%) rotate(45deg);
+}
+
+.info-item:has(.fas.fa-github) > * {
+    position: relative;
+    z-index: 1;
+}
+
+/* Click feedback */
+.info-item:has(.fas.fa-github):active {
+    transform: translateY(0px) scale(0.98);
+    box-shadow: 0 4px 15px rgba(88, 166, 255, 0.15);
+}
+
 /* Responsive Design */
 @media (max-width: 1200px) {
     .footer-main {
