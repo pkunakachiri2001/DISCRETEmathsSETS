@@ -17,8 +17,26 @@ document.addEventListener('DOMContentLoaded', () => {
     const helpModal = document.getElementById('help-modal');
     const modalClose = helpModal?.querySelector('.modal-close');
     const loadingOverlay = document.getElementById('loading-overlay');
+    
+    // Import/Export elements
+    const importBtn = document.getElementById('import-btn');
+    const exportBtn = document.getElementById('export-btn');
+    const importModal = document.getElementById('import-modal');
+    const exportModal = document.getElementById('export-modal');
+    const importModalClose = document.getElementById('import-modal-close');
+    const exportModalClose = document.getElementById('export-modal-close');
+    const fileInput = document.getElementById('file-input');
+    const fileUploadArea = document.getElementById('file-upload-area');
+    const processImportBtn = document.getElementById('process-import');
+    const downloadTemplateBtn = document.getElementById('download-template');
+    const importPreview = document.getElementById('import-preview');
+    const previewContent = document.getElementById('preview-content');
+    const confirmExportBtn = document.getElementById('confirm-export');
+    const cancelExportBtn = document.getElementById('cancel-export');
 
     let currentStep = 1;
+    let lastResults = null;
+    let selectedFile = null;
     const members = []; // {name, items:Array}
 
     function updateSteps() {
@@ -77,6 +95,7 @@ document.addEventListener('DOMContentLoaded', () => {
             document.getElementById('stat-ready').classList.remove('ok');
         }
         resetAllBtn.disabled = members.length === 0;
+        exportBtn.disabled = members.length === 0;
     }
 
     function refreshStats() {
@@ -118,6 +137,7 @@ document.addEventListener('DOMContentLoaded', () => {
             });
             const data = await res.json();
             renderResults(data);
+            lastResults = data; // Store for export
             currentStep = 3;
             updateSteps();
         } catch (e) {
@@ -208,6 +228,263 @@ document.addEventListener('DOMContentLoaded', () => {
     function showLoading() { loadingOverlay?.classList.remove('hidden'); }
     function hideLoading() { loadingOverlay?.classList.add('hidden'); }
 
+    // Import/Export Functions
+    function openImportModal() {
+        importModal.classList.remove('hidden');
+        resetImportState();
+    }
+
+    function closeImportModal() {
+        importModal.classList.add('hidden');
+        resetImportState();
+    }
+
+    function resetImportState() {
+        selectedFile = null;
+        fileInput.value = '';
+        importPreview.classList.add('hidden');
+        processImportBtn.disabled = true;
+        fileUploadArea.classList.remove('has-file', 'drag-over');
+        updateUploadAreaText();
+    }
+
+    function updateUploadAreaText() {
+        const uploadText = fileUploadArea.querySelector('.upload-text');
+        if (selectedFile) {
+            uploadText.innerHTML = `
+                <strong>✓ ${selectedFile.name}</strong>
+                <p>File ready for processing (${(selectedFile.size / 1024).toFixed(1)} KB)</p>
+            `;
+        } else {
+            uploadText.innerHTML = `
+                <strong>Drop your file here or click to browse</strong>
+                <p>Supports CSV and Excel files</p>
+            `;
+        }
+    }
+
+    async function processFileImport() {
+        if (!selectedFile) return;
+        
+        showLoading();
+        const formData = new FormData();
+        formData.append('file', selectedFile);
+        
+        try {
+            const response = await fetch('/import-csv', {
+                method: 'POST',
+                body: formData
+            });
+            
+            const result = await response.json();
+            
+            if (result.success) {
+                // Show preview
+                showImportPreview(result.members);
+                processImportBtn.disabled = false;
+                processImportBtn.innerHTML = `
+                    <i class="fas fa-check"></i>
+                    Import ${result.count} Members
+                `;
+            } else {
+                throw new Error(result.error || 'Import failed');
+            }
+        } catch (error) {
+            alert(`Import Error: ${error.message}`);
+            resetImportState();
+        } finally {
+            hideLoading();
+        }
+    }
+
+    function showImportPreview(importedMembers) {
+        importPreview.classList.remove('hidden');
+        
+        const previewHtml = `
+            <div class="preview-table">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Member</th>
+                            <th>Items</th>
+                            <th>Count</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        ${importedMembers.slice(0, 5).map(member => `
+                            <tr>
+                                <td>${member.name}</td>
+                                <td class="items-preview">{${member.items.join(', ')}}</td>
+                                <td>${member.items.length}</td>
+                            </tr>
+                        `).join('')}
+                        ${importedMembers.length > 5 ? `
+                            <tr class="more-indicator">
+                                <td colspan="3">... and ${importedMembers.length - 5} more members</td>
+                            </tr>
+                        ` : ''}
+                    </tbody>
+                </table>
+            </div>
+        `;
+        
+        previewContent.innerHTML = previewHtml;
+    }
+
+    async function confirmImport() {
+        if (!selectedFile) return;
+        
+        showLoading();
+        const formData = new FormData();
+        formData.append('file', selectedFile);
+        
+        try {
+            const response = await fetch('/import-csv', {
+                method: 'POST',
+                body: formData
+            });
+            
+            const result = await response.json();
+            
+            if (result.success) {
+                // Clear existing members
+                members.splice(0, members.length);
+                
+                // Add imported members
+                result.members.forEach(member => {
+                    members.push({ name: member.name, items: member.items });
+                });
+                
+                // Update UI
+                renderMembersTable();
+                refreshStats();
+                updateControls();
+                closeImportModal();
+                
+                // Show success message
+                const successMsg = document.createElement('div');
+                successMsg.className = 'import-success-toast';
+                successMsg.innerHTML = `
+                    <i class="fas fa-check-circle"></i>
+                    Successfully imported ${result.count} members!
+                `;
+                document.body.appendChild(successMsg);
+                
+                setTimeout(() => {
+                    successMsg.remove();
+                }, 3000);
+                
+                currentStep = Math.max(currentStep, 2);
+                updateSteps();
+            } else {
+                throw new Error(result.error || 'Import failed');
+            }
+        } catch (error) {
+            alert(`Import Error: ${error.message}`);
+        } finally {
+            hideLoading();
+        }
+    }
+
+    async function downloadTemplate() {
+        try {
+            const response = await fetch('/sample-template');
+            const blob = await response.blob();
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'sample_import_template.csv';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        } catch (error) {
+            alert('Failed to download template');
+        }
+    }
+
+    function openExportModal() {
+        exportModal.classList.remove('hidden');
+        document.getElementById('export-members-count').textContent = members.length;
+    }
+
+    function closeExportModal() {
+        exportModal.classList.add('hidden');
+    }
+
+    async function exportData() {
+        const format = document.querySelector('input[name="export-format"]:checked').value;
+        
+        if (members.length === 0) {
+            alert('No data to export');
+            return;
+        }
+        
+        showLoading();
+        
+        try {
+            const exportData = {
+                members: members,
+                results: lastResults || {},
+                format: format
+            };
+            
+            const response = await fetch('/export-csv', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(exportData)
+            });
+            
+            if (response.ok) {
+                const blob = await response.blob();
+                const url = URL.createObjectURL(blob);
+                
+                // Get filename from response headers
+                const contentDisposition = response.headers.get('Content-Disposition');
+                let filename = `discrete_math_export_${Date.now()}.${format === 'excel' ? 'xlsx' : 'csv'}`;
+                if (contentDisposition) {
+                    const matches = /filename[^;=\n]*=((['"]).*?\2|[^;\n]*)/.exec(contentDisposition);
+                    if (matches != null && matches[1]) {
+                        filename = matches[1].replace(/['"]/g, '');
+                    }
+                }
+                
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = filename;
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                URL.revokeObjectURL(url);
+                
+                closeExportModal();
+                
+                // Show success message
+                const successMsg = document.createElement('div');
+                successMsg.className = 'export-success-toast';
+                successMsg.innerHTML = `
+                    <i class="fas fa-download"></i>
+                    Export completed! File downloaded as ${filename}
+                `;
+                document.body.appendChild(successMsg);
+                
+                setTimeout(() => {
+                    successMsg.remove();
+                }, 4000);
+                
+            } else {
+                const errorData = await response.json();
+                throw new Error(errorData.error || 'Export failed');
+            }
+        } catch (error) {
+            alert(`Export Error: ${error.message}`);
+        } finally {
+            hideLoading();
+        }
+    }
+
     // Events
     addBtn.addEventListener('click', addMember);
     clearCurrentBtn.addEventListener('click', () => { nameInput.value=''; itemsInput.value=''; nameInput.focus(); });
@@ -223,6 +500,51 @@ document.addEventListener('DOMContentLoaded', () => {
         toggleMembersBtn.querySelector('.label').textContent = expanded ? 'Show Members' : 'Hide Members';
         toggleMembersBtn.querySelector('i').classList.toggle('rot');
     });
+
+    // Import/Export events
+    importBtn?.addEventListener('click', openImportModal);
+    exportBtn?.addEventListener('click', openExportModal);
+    importModalClose?.addEventListener('click', closeImportModal);
+    exportModalClose?.addEventListener('click', closeExportModal);
+    
+    // File upload events
+    fileUploadArea?.addEventListener('click', () => fileInput.click());
+    fileUploadArea?.addEventListener('dragover', (e) => {
+        e.preventDefault();
+        fileUploadArea.classList.add('drag-over');
+    });
+    fileUploadArea?.addEventListener('dragleave', () => {
+        fileUploadArea.classList.remove('drag-over');
+    });
+    fileUploadArea?.addEventListener('drop', (e) => {
+        e.preventDefault();
+        fileUploadArea.classList.remove('drag-over');
+        const files = e.dataTransfer.files;
+        if (files.length > 0) {
+            selectedFile = files[0];
+            fileUploadArea.classList.add('has-file');
+            updateUploadAreaText();
+            processFileImport();
+        }
+    });
+    
+    fileInput?.addEventListener('change', (e) => {
+        if (e.target.files.length > 0) {
+            selectedFile = e.target.files[0];
+            fileUploadArea.classList.add('has-file');
+            updateUploadAreaText();
+            processFileImport();
+        }
+    });
+    
+    processImportBtn?.addEventListener('click', confirmImport);
+    downloadTemplateBtn?.addEventListener('click', downloadTemplate);
+    confirmExportBtn?.addEventListener('click', exportData);
+    cancelExportBtn?.addEventListener('click', closeExportModal);
+    
+    // Modal close on outside click
+    importModal?.addEventListener('click', e => { if (e.target === importModal) closeImportModal(); });
+    exportModal?.addEventListener('click', e => { if (e.target === exportModal) closeExportModal(); });
 
     // Help modal
     helpBtn?.addEventListener('click', () => helpModal.classList.remove('hidden'));

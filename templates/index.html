@@ -157,12 +157,22 @@
                                 <span class="count-badge" id="member-count">0</span>
                             </button>
                             <div class="panel-tools">
-                                <button type="button" id="reset-all" class="danger-btn small" disabled>
-                                    <i class="fas fa-trash"></i> Reset All
-                                </button>
-                                <button type="button" id="compare-btn" class="primary-btn small" disabled>
-                                    <i class="fas fa-calculator"></i> Compare
-                                </button>
+                                <div class="tool-group">
+                                    <button type="button" id="import-btn" class="secondary-btn small" title="Import from CSV/Excel">
+                                        <i class="fas fa-upload"></i> Import
+                                    </button>
+                                    <button type="button" id="export-btn" class="secondary-btn small" disabled title="Export to CSV/Excel">
+                                        <i class="fas fa-download"></i> Export
+                                    </button>
+                                </div>
+                                <div class="tool-group">
+                                    <button type="button" id="reset-all" class="danger-btn small" disabled>
+                                        <i class="fas fa-trash"></i> Reset All
+                                    </button>
+                                    <button type="button" id="compare-btn" class="primary-btn small" disabled>
+                                        <i class="fas fa-calculator"></i> Compare
+                                    </button>
+                                </div>
                             </div>
                         </div>
                         <div class="panel-body collapsed" id="members-container">
@@ -236,6 +246,141 @@
             </div>
         </div>
     </div>
+    <!-- Import Modal -->
+    <div id="import-modal" class="modal hidden">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>
+                    <i class="fas fa-upload"></i>
+                    Import Data from CSV/Excel
+                </h3>
+                <button class="modal-close" id="import-modal-close">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="import-section">
+                    <div class="import-info">
+                        <h4><i class="fas fa-info-circle"></i> File Requirements</h4>
+                        <ul class="requirements-list">
+                            <li>File format: CSV (.csv) or Excel (.xlsx, .xls)</li>
+                            <li>Required columns: <code>member</code> and <code>items</code></li>
+                            <li>Items should be comma-separated in the items column</li>
+                            <li>Maximum file size: 5MB</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="file-upload-area" id="file-upload-area">
+                        <div class="upload-icon">
+                            <i class="fas fa-cloud-upload-alt"></i>
+                        </div>
+                        <div class="upload-text">
+                            <strong>Drop your file here or click to browse</strong>
+                            <p>Supports CSV and Excel files</p>
+                        </div>
+                        <input type="file" id="file-input" accept=".csv,.xlsx,.xls" hidden>
+                    </div>
+                    
+                    <div class="import-actions">
+                        <button type="button" id="download-template" class="secondary-btn">
+                            <i class="fas fa-file-download"></i>
+                            Download Template
+                        </button>
+                        <button type="button" id="process-import" class="primary-btn" disabled>
+                            <i class="fas fa-check"></i>
+                            Import Data
+                        </button>
+                    </div>
+                    
+                    <div id="import-preview" class="import-preview hidden">
+                        <h4><i class="fas fa-eye"></i> Preview</h4>
+                        <div id="preview-content"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Export Modal -->
+    <div id="export-modal" class="modal hidden">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>
+                    <i class="fas fa-download"></i>
+                    Export Analysis Results
+                </h3>
+                <button class="modal-close" id="export-modal-close">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="export-section">
+                    <div class="export-info">
+                        <h4><i class="fas fa-info-circle"></i> Export Options</h4>
+                        <p>Choose your preferred format to download the complete analysis including member data and set operation results.</p>
+                    </div>
+                    
+                    <div class="format-selection">
+                        <div class="format-option">
+                            <input type="radio" id="format-csv" name="export-format" value="csv" checked>
+                            <label for="format-csv" class="format-label">
+                                <div class="format-icon">
+                                    <i class="fas fa-file-csv"></i>
+                                </div>
+                                <div class="format-details">
+                                    <strong>CSV Format</strong>
+                                    <p>Simple comma-separated values, universal compatibility</p>
+                                </div>
+                            </label>
+                        </div>
+                        
+                        <div class="format-option">
+                            <input type="radio" id="format-excel" name="export-format" value="excel">
+                            <label for="format-excel" class="format-label">
+                                <div class="format-icon">
+                                    <i class="fas fa-file-excel"></i>
+                                </div>
+                                <div class="format-details">
+                                    <strong>Excel Format</strong>
+                                    <p>Multi-sheet workbook with formatted data and metadata</p>
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <div class="export-summary">
+                        <h5><i class="fas fa-list"></i> What's Included</h5>
+                        <div class="summary-items">
+                            <div class="summary-item">
+                                <i class="fas fa-users"></i>
+                                <span id="export-members-count">0</span> Members and their items
+                            </div>
+                            <div class="summary-item">
+                                <i class="fas fa-calculator"></i>
+                                Set operation results (Union, Intersection, etc.)
+                            </div>
+                            <div class="summary-item">
+                                <i class="fas fa-clock"></i>
+                                Export timestamp and metadata
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="export-actions">
+                        <button type="button" id="cancel-export" class="secondary-btn">
+                            <i class="fas fa-times"></i>
+                            Cancel
+                        </button>
+                        <button type="button" id="confirm-export" class="primary-btn">
+                            <i class="fas fa-download"></i>
+                            Download File
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- Help Modal -->
     <div id="help-modal" class="modal hidden">
         <div class="modal-content">
@@ -279,15 +424,24 @@
 
     <footer class="calculator-footer">
         <div class="footer-content">
-            <span class="footer-left">Made with <span class="footer-heart">❤️</span> for Discrete Mathematics Project 1</span>
+            <span class="footer-left">
+                <i class="fas fa-calculator"></i>
+                Interactive Set Theory Calculator
+            </span>
             <span class="footer-center">
                 | <button id="help-btn" class="help-btn">
                     <i class="fas fa-question-circle"></i>
                     Help
                 </button> |
-                <a href="https://pkunaka1engineer.me/" target="_blank" class="footer-btn">View Designer's Portfolio</a> |
+                <span class="footer-team">
+                    <i class="fas fa-users"></i>
+                    Team Collaboration
+                </span> |
             </span>
-            <span class="footer-right">UI Design & Development by Panashe Kunaka © 2025</span>
+            <span class="footer-right">
+                <i class="fas fa-university"></i>
+                Discrete Mathematics Excellence © 2025
+            </span>
         </div>
     </footer>
 

@@ -1,4 +1,14 @@
-# Discrete Mathematics – Grocery List Set Operations App
+# Di## ✨ Key Features
+* Add unlimited members with comma‑separated item lists
+* **🔥 NEW: CSV/Excel Import** - Upload spreadsheets with member data
+* **🔥 NEW: Smart Export** - Download results as CSV or formatted Excel
+* Real-time live stats (union size, intersection size, exactly-one count, averages)
+* Color‑coded "unique per member" visualization
+* Plain‑language explanations for non‑math users
+* Responsive, mobile-friendly UI with glassmorphism styling
+* Clean JSON API (`POST /compare`) for integration or reuse
+* Health endpoint (`GET /health`) for deployment monitoring
+* **🔥 NEW: Sample Templates** - Download CSV templates for easy data entryathematics – Grocery List Set Operations App
 
 Interactive web tool that demonstrates core set theory concepts (union, intersection, exclusivity, cardinality) through a real-world scenario: comparing multiple members' grocery lists.
 
@@ -42,7 +52,9 @@ Environment variables (optional):
 | `PORT` | `5000` | Server port override |
 | `HOST` | `0.0.0.0` | Bind host |
 
-## 🧪 API Example
+## 🧪 API Examples
+
+### Set Comparison
 Request:
 ```bash
 curl -X POST http://127.0.0.1:5000/compare \
@@ -60,17 +72,36 @@ Response:
 }
 ```
 
+### 🔥 NEW: CSV/Excel Import
+```bash
+curl -X POST http://127.0.0.1:5000/import-csv \
+  -F "file=@grocery_data.csv"
+```
+
+### 🔥 NEW: Data Export
+```bash
+curl -X POST http://127.0.0.1:5000/export-csv \
+  -H "Content-Type: application/json" \
+  -d '{"members":[...],"results":{...},"format":"excel"}'
+```
+
+### 🔥 NEW: Sample Template
+```bash
+curl -X GET http://127.0.0.1:5000/sample-template
+```
+
 ## 🩺 Health Check
 `GET /health` → `{ "status": "ok" }`
 
 ## 📁 Project Layout
 ```
-app.py              # Flask app factory + endpoints
+app.py              # Flask app + CSV/Excel import/export endpoints
 templates/          # Jinja2 HTML templates (home & calculator)
-static/style.css    # Calculator styles
+static/style.css    # Calculator styles + import/export UI
 static/home.css     # Landing page styles
-static/script.js    # Front-end logic
-requirements.txt    # Pinned dependencies
+static/script.js    # Front-end logic + file handling
+samples/            # 🔥 NEW: Sample CSV templates
+requirements.txt    # Dependencies (+ pandas, openpyxl)
 Procfile            # Gunicorn process definition
 README.md           # Documentation
 ```
@@ -100,15 +131,29 @@ heroku open
 * For rate limiting or auth, wrap the `/compare` route / add proxy layer.
 
 ## 🧹 Maintenance / Extensibility
-Ideas:
-* Add export (CSV / JSON) of results
+**✅ Recently Added:**
+* **CSV/Excel Import & Export** - Full spreadsheet integration
+* **Smart File Processing** - Drag & drop, validation, preview
+* **Multiple Export Formats** - CSV and multi-sheet Excel
+* **Sample Templates** - Easy data entry guidance
+
+**Future Ideas:**
 * Add symmetric difference operation explicitly
 * Add dark/light theme toggle
 * Persist last session via localStorage
 * Add simple Venn diagram visualization
+* Bulk operations on imported datasets
 
-## 👥 Credits
-Team: TANVI PATIL · NOORWAY FARAS · CHRISTIAN R MUTIWADIRWA · PANASHE KUNAKA (UI & Dev)
+## 👥 Development Team
+**Collaborative Project Team:**
+- **TANVI PATIL** - Core Development & Set Theory Implementation
+- **NOORWAY FARAS** - Backend Logic & Data Processing
+- **CHRISTIAN R MUTIWADIRWA** - Algorithm Design & Mathematical Operations
+- **PANASHE KUNAKA** - Full-Stack Development & User Interface
+
+**Project Philosophy:** *Combining mathematical excellence with innovative technology to create educational tools that make discrete mathematics accessible and engaging.*
 
 ---
-Made with ❤️ for Discrete Mathematics Project 1.
+**Academic Excellence through Collaborative Innovation** 🎓✨
+
+*Discrete Mathematics Project 1 - Set Operations & Analysis*
