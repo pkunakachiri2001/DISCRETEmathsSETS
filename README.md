@@ -147,7 +147,7 @@ heroku open
 ## 👥 Development Team
 **Collaborative Project Team:**
 - **TANVI PATIL** - Core Development & Set Theory Implementation
-- **NOORWAY FARAS** - Backend Logic & Data Processing
+- **NOORYEN FARAS** - Backend Logic & Data Processing
 - **CHRISTIAN R MUTIWADIRWA** - Algorithm Design & Mathematical Operations
 - **PANASHE KUNAKA** - Full-Stack Development & User Interface
 
