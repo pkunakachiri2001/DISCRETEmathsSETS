@@ -45,6 +45,11 @@ python app.py
 ```
 Open: http://127.0.0.1:5000  (home)  or  http://127.0.0.1:5000/calculator
 
+<img width="1352" height="687" alt="image" src="https://github.com/user-attachments/assets/8839f8b0-afb3-482b-b15d-14418c5223db" />
+<img width="1352" height="639" alt="image" src="https://github.com/user-attachments/assets/13dee84b-709d-47cf-9c66-1cf193e94047" />
+
+
+
 Environment variables (optional):
 | Var | Default | Purpose |
 |-----|---------|---------|
@@ -71,6 +76,10 @@ Response:
   "cardinalities": {"Alice": 3, "Bob": 2}
 }
 ```
+<img width="1365" height="638" alt="image" src="https://github.com/user-attachments/assets/10dc4683-6f4e-480d-ac5f-f360f2903102" />
+<img width="1326" height="693" alt="image" src="https://github.com/user-attachments/assets/f235ae62-e3e2-433e-9c87-77cebf967be4" />
+
+
 
 ### 🔥 NEW: CSV/Excel Import
 ```bash
